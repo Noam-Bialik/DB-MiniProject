@@ -1,0 +1,54 @@
+CREATE TABLE Aeroplane
+(
+  Airway INT NOT NULL,
+  IDP INT NOT NULL,
+  Model_Number INT NOT NULL,
+  Manufacturing_Year INT NOT NULL,
+  Manufacturing_Company INT NOT NULL,
+  PRIMARY KEY (IDP)
+);
+
+CREATE TABLE Security_Person
+(
+  Name INT NOT NULL,
+  IDS INT NOT NULL,
+  City INT NOT NULL,
+  Area INT NOT NULL,
+  Rank INT NOT NULL,
+  Security_Company INT NOT NULL,
+  PRIMARY KEY (IDS)
+);
+
+CREATE TABLE Airport
+(
+  Name INT NOT NULL,
+  IDA INT NOT NULL,
+  Country INT NOT NULL,
+  City INT NOT NULL,
+  PRIMARY KEY (IDA)
+);
+
+CREATE TABLE Flight
+(
+  IDF INT NOT NULL,
+  Country_of_Origin INT NOT NULL,
+  Depature_Date INT NOT NULL,
+  Estimated_Arrival_Date INT NOT NULL,
+  Actual_Arrival_Date INT,
+  IDP INT NOT NULL,
+  IDA INT NOT NULL,
+  SourceIDA INT NOT NULL,
+  PRIMARY KEY (IDF),
+  FOREIGN KEY (IDP) REFERENCES Aeroplane(IDP),
+  FOREIGN KEY (IDA) REFERENCES Airport(IDA),
+  FOREIGN KEY (SourceIDA) REFERENCES Airport(IDA)
+);
+
+CREATE TABLE Securing
+(
+  IDA INT NOT NULL,
+  IDS INT NOT NULL,
+  PRIMARY KEY (IDA, IDS),
+  FOREIGN KEY (IDA) REFERENCES Airport(IDA),
+  FOREIGN KEY (IDS) REFERENCES Security_Person(IDS)
+);
